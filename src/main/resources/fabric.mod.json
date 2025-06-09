@@ -19,9 +19,12 @@
 		"main": [
 			"fr.kayrouge.brave.BRAVE"
 		],
-		"fabric-datagen": [
-			"fr.kayrouge.brave.BRAVEDataGenerator"
-		]
+		"client": [
+			"fr.kayrouge.brave.client.BRAVEClient"
+		],
+		"modmenu": [ "fr.kayrouge.brave.util.impl.BRAVEMenuApiImpl" ],
+		"fabric-datagen": [ "fr.kayrouge.brave.BRAVEDataGenerator" ],
+		"cardinal-components": [ "fr.kayrouge.brave.component.BComponents" ]
 	},
 	"mixins": [
 		"brave.mixins.json"
@@ -31,6 +34,11 @@
 		"minecraft": "~1.21.1",
 		"java": ">=21",
 		"fabric-api": "*"
+	},
+	"custom": {
+		"cardinal-components": [
+			"brave:player_data"
+		]
 	},
 	"suggests": {
 		"another-mod": "*"
