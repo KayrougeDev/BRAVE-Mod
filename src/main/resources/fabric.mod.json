@@ -1,0 +1,38 @@
+{
+	"schemaVersion": 1,
+	"id": "brave",
+	"version": "${version}",
+	"name": "BRAVE",
+	"description": "VALORANT in Minecraft",
+	"authors": [
+		"Kayrouge",
+		"Oxozot"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/KayrougeDev/BRAVE"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/brave/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"fr.kayrouge.brave.BRAVE"
+		],
+		"fabric-datagen": [
+			"fr.kayrouge.brave.BRAVEDataGenerator"
+		]
+	},
+	"mixins": [
+		"brave.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.14",
+		"minecraft": "~1.21.1",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
