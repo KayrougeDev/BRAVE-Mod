@@ -1,10 +1,12 @@
 package fr.kayrouge.brave.agents;
 
+import fr.kayrouge.brave.agents.omen.AgentOmen;
+
 public enum Agents {
 
     NONE(0, null),
     REYNA(1, null),
-    OMEN(2, null);
+    OMEN(2, new AgentOmen("Omen"));
 
 
     final int id;
