@@ -1,12 +1,16 @@
 {
-	"required": true,
-	"minVersion": "0.8",
-	"package": "fr.kayrouge.brave.mixin",
-	"compatibilityLevel": "JAVA_21",
-	"mixins": [
-		"ServerPlayerEntityMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
+  "required": true,
+  "minVersion": "0.8",
+  "package": "fr.kayrouge.brave.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "ServerPlayerEntityMixin"
+  ],
+  "client": [
+    "client.InGameHudMixin",
+    "client.MinecraftClientMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
 	}
 }

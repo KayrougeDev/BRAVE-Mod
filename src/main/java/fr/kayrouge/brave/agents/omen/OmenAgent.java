@@ -2,16 +2,20 @@ package fr.kayrouge.brave.agents.omen;
 
 import fr.kayrouge.brave.agents.Agent;
 import fr.kayrouge.brave.agents.spell.Spell;
+import fr.kayrouge.brave.agents.spell.Spells;
+import fr.kayrouge.brave.client.render.BRenderers;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 
-public class AgentOmen extends Agent {
+public class OmenAgent extends Agent {
 
-    public AgentOmen(String name) {
+    public OmenAgent(String name) {
         super(name);
     }
 
     @Override
     public Spell getFirstSpell() {
-        return null;
+        return Spells.OMEN_TP;
     }
 
     @Override
@@ -27,5 +31,11 @@ public class AgentOmen extends Agent {
     @Override
     public Spell getUltimate() {
         return null;
+    }
+
+    @Environment(EnvType.CLIENT)
+    @Override
+    public Runnable transformAnimation(BRenderers.RenderContext renderContext, long l) {
+        return () -> {};
     }
 }

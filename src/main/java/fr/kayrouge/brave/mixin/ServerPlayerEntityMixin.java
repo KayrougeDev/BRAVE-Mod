@@ -22,8 +22,10 @@ public abstract class ServerPlayerEntityMixin {
 	@Inject(at = @At("HEAD"), method = "tick")
 	private void tick(CallbackInfo info) {
 		ServerPlayerEntity INSTANCE = ((ServerPlayerEntity)(Object)this);
+		if(BComponents.PLAYER_DATA.get(INSTANCE).getAgent() != Agents.DEFAULT) return;
+
 		int total = 0;
-		for(ItemStack stack : INSTANCE.getInventory().main) {
+		for(ItemStack stack : INSTANCE.getInventory().getMainStacks()) {
 			if(stack.getItem() == BItems.RADIANITE) {
 				total += stack.getCount();
 			}
@@ -42,19 +44,17 @@ public abstract class ServerPlayerEntityMixin {
 			return;
 		}
 
-		if(BComponents.PLAYER_DATA.get(INSTANCE).getAgent() == Agents.NONE) {
-			if(total > 5) {
-				INSTANCE.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 20*7, 1, false, false));
-			}
-			if(total > 20) {
-				INSTANCE.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 25, 2, false, false));
-				BComponents.PLAYER_DATA.get(INSTANCE).incrementExposedTime();
-				BComponents.PLAYER_DATA.sync(INSTANCE);
-			}
-			else if(exposedTime != 0) {
-				BComponents.PLAYER_DATA.get(INSTANCE).setExposedTime(0);
-				BComponents.PLAYER_DATA.sync(INSTANCE);
-			}
+		if(total > 5) {
+			INSTANCE.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 20*7, 1, false, false));
+		}
+		if(total > 20) {
+			INSTANCE.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 25, 2, false, false));
+			BComponents.PLAYER_DATA.get(INSTANCE).incrementExposedTime();
+			BComponents.PLAYER_DATA.sync(INSTANCE);
+		}
+		else if(exposedTime != 0) {
+			BComponents.PLAYER_DATA.get(INSTANCE).setExposedTime(0);
+			BComponents.PLAYER_DATA.sync(INSTANCE);
 		}
 	}
 }

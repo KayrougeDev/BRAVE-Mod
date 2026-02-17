@@ -8,7 +8,7 @@ import net.fabricmc.api.Environment;
 
 @Environment(EnvType.CLIENT)
 @Config(name = BRAVE.MOD_ID+".client")
-@Config.Gui.Background("minecraft:textures/block/dirt.png")
+@Config.Gui.Background("minecraft:textures/block/stone.png")
 public class BRAVEClientConfig implements ConfigData {
 
     public boolean testBool = true;

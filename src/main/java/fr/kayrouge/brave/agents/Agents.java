@@ -1,35 +1,24 @@
 package fr.kayrouge.brave.agents;
 
-import fr.kayrouge.brave.agents.omen.AgentOmen;
+import fr.kayrouge.brave.BRAVE;
+import fr.kayrouge.brave.BRegistries;
+import fr.kayrouge.brave.agents.omen.OmenAgent;
+import net.minecraft.registry.Registry;
 
-public enum Agents {
+public class Agents {
 
-    NONE(0, null),
-    REYNA(1, null),
-    OMEN(2, new AgentOmen("Omen"));
+    public static final Agent DEFAULT = register(new DefaultAgent("default"));
+    public static final Agent OMEN = register(new OmenAgent("omen"));
 
 
-    final int id;
-    final Agent agent;
-    Agents(int id, Agent agent) {
-        this.id = id;
-        this.agent = agent;
+    private static Agent register(String id, Agent agent) {
+        return Registry.register(BRegistries.AGENTS, BRAVE.id(id), agent);
     }
 
-    public int getId() {
-        return id;
+    private static Agent register(Agent agent) {
+        return register(agent.getName(), agent);
     }
 
-    public Agent getAgent() {
-        return agent;
-    }
 
-    public static Agents getByID(int id) {
-        for(Agents a : values()) {
-            if(a.getId() == id) {
-                return a;
-            }
-        }
-        return NONE;
-    }
+    public static void init() {}
 }

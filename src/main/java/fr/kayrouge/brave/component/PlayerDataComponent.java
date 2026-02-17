@@ -1,18 +1,27 @@
 package fr.kayrouge.brave.component;
 
 import fr.kayrouge.brave.BRAVE;
+import fr.kayrouge.brave.BRegistries;
+import fr.kayrouge.brave.agents.Agent;
 import fr.kayrouge.brave.agents.Agents;
+import fr.kayrouge.brave.agents.spell.EquippableSpell;
+import fr.kayrouge.brave.agents.spell.Spell;
+import fr.kayrouge.brave.agents.spell.Spells;
+import fr.kayrouge.brave.client.render.BRenderers;
+import fr.kayrouge.brave.network.BPacketCodecs;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
+import net.minecraft.util.Identifier;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 
 public class PlayerDataComponent implements AutoSyncedComponent {
 
-    private Agents agent = Agents.NONE;
+    private Agent agent = Agents.DEFAULT;
     private int exposedTime = 0;
+    private Spell equippedSpell = Spells.DEFAULT;
 
     private final PlayerEntity player;
     public PlayerDataComponent(PlayerEntity player) {
@@ -21,15 +30,14 @@ public class PlayerDataComponent implements AutoSyncedComponent {
 
     @Override
     public void applySyncPacket(RegistryByteBuf buf) {
-        this.exposedTime = buf.readInt();
-        this.agent = Agents.getByID(buf.readInt());
+        this.agent = BPacketCodecs.AGENT.decode(buf);
+        this.equippedSpell = BPacketCodecs.SPELL.decode(buf);
 
 
         // if should update agent
         if(buf.readBoolean()) {
             BRAVE.LOGGER.info("SYNCED");
-            this.agent.getAgent().transformAnimation();
-            // TODO Copy PopKorn render queue https://github.com/KayrougeDev/PopKorn/blob/master/src/main/java/fr/kayrouge/popkorn/client/renderer/PKRenderers.java
+            BRenderers.INSTANCE.addRenderTask(this.agent::transformAnimation,1000*5);
         }
     }
 
@@ -39,25 +47,29 @@ public class PlayerDataComponent implements AutoSyncedComponent {
     }
 
     public void writeSyncPacket(RegistryByteBuf buf, ServerPlayerEntity recipient, boolean updateAgent) {
-        buf.writeInt(this.exposedTime);
-        buf.writeInt(agent.getId());
+        BPacketCodecs.AGENT.encode(buf, this.agent);
+        BPacketCodecs.SPELL.encode(buf, this.equippedSpell);
+
         buf.writeBoolean(updateAgent);
     }
 
+
     @Override
-    public void readFromNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup wrapperLookup) {
-        this.agent = Agents.getByID(nbtCompound.getInt("agentID"));
+    public void readData(ReadView readView) {
+        this.agent = BRegistries.AGENTS.get(Identifier.tryParse(readView.getString(
+                "agentID", BRegistries.AGENTS.getId(Agents.DEFAULT).toString()
+        )));
     }
 
     @Override
-    public void writeToNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup wrapperLookup) {
-        nbtCompound.putInt("agentID", this.agent.getId());
+    public void writeData(WriteView writeView) {
+        writeView.putString("agentID", BRegistries.AGENTS.getId(this.agent).toString());
     }
 
 
     @Override
     public boolean shouldSyncWith(ServerPlayerEntity player) {
-        return player == this.player;
+        return true;
     }
 
     public int getExposedTime() {
@@ -72,12 +84,23 @@ public class PlayerDataComponent implements AutoSyncedComponent {
         this.exposedTime++;
     }
 
-    public void setAgent(Agents agent) {
+    public void setAgent(Agent agent) {
         this.agent = agent;
     }
 
-    public Agents getAgent() {
+    public Agent getAgent() {
         return agent;
     }
 
+    public Spell getEquippedSpell() {
+        return equippedSpell;
+    }
+
+    public void setEquippedSpell(EquippableSpell equippedSpell) {
+        this.equippedSpell = equippedSpell;
+    }
+
+    public void resetEquippedSpell() {
+        this.equippedSpell = Spells.DEFAULT;
+    }
 }
