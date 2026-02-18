@@ -2,10 +2,10 @@ package fr.kayrouge.brave.agents.omen;
 
 import fr.kayrouge.brave.BRAVE;
 import fr.kayrouge.brave.agents.spell.EquippableSpell;
-import fr.kayrouge.brave.agents.spell.Spell;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.math.Vec3d;
 
 public class OmenTPSpell extends EquippableSpell {
 
@@ -35,5 +35,11 @@ public class OmenTPSpell extends EquippableSpell {
     @Override
     public int getTickCooldown() {
         return 0;
+    }
+
+
+    @Environment(EnvType.CLIENT)
+    public void renderTarget() {
+
     }
 }

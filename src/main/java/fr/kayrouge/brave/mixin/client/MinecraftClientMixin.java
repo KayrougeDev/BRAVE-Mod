@@ -2,6 +2,7 @@ package fr.kayrouge.brave.mixin.client;
 
 import fr.kayrouge.brave.BRAVE;
 import fr.kayrouge.brave.agents.Agents;
+import fr.kayrouge.brave.agents.spell.Spell;
 import fr.kayrouge.brave.agents.spell.SpellDataManager;
 import fr.kayrouge.brave.agents.spell.Spells;
 import fr.kayrouge.brave.component.BComponents;
@@ -33,6 +34,8 @@ public class MinecraftClientMixin {
                 data.putDouble("tpZ", tpVec.z);
 
                 ClientPlayNetworking.send(new EquippedSpellUseC2SPayload(Spells.OMEN_TP, data, false));
+
+                SpellDataManager.getInstance().setTpVec(Vec3d.ZERO);
                 return false;
             }
         }

@@ -11,7 +11,7 @@ public class SpellDataManager {
     @Getter(AccessLevel.PUBLIC)
     private static final SpellDataManager instance = new SpellDataManager();
 
-    private Vec3d tpVec = new Vec3d(0,0,0);
+    private Vec3d tpVec = Vec3d.ZERO;
 
 
 

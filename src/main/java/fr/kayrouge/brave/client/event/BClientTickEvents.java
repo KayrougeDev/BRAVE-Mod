@@ -26,7 +26,7 @@ public class BClientTickEvents {
             if (player == null || BComponents.PLAYER_DATA.get(player).getEquippedSpell() != Spells.OMEN_TP) return;
 
             BlockHitResult hitResult = (BlockHitResult)player.raycast(12, 0, false);
-            if(hitResult.getType() == HitResult.Type.BLOCK) {
+            if(hitResult.getType() == HitResult.Type.BLOCK || hitResult.getType() == HitResult.Type.MISS) {
                 Vec3d hitPos = hitResult.getPos();
                 Vec3d rotationVec = player.getRotationVec(0.0f);
                 Vec3d tpPos = hitPos.subtract(rotationVec);
