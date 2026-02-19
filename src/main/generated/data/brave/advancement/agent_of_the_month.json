@@ -1,0 +1,28 @@
+{
+  "parent": "brave:agent",
+  "criteria": {
+    "be_omen": {
+      "conditions": {
+        "agent": {
+          "agents": "brave:omen"
+        }
+      },
+      "trigger": "brave:become_agent"
+    }
+  },
+  "display": {
+    "description": "Become every agent",
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "brave:icon_agent"
+    },
+    "title": "We only need you"
+  },
+  "requirements": [
+    [
+      "be_omen"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,28 @@
+{
+  "parent": "brave:agent",
+  "criteria": {
+    "be_omen": {
+      "conditions": {
+        "agent": {
+          "agents": "brave:omen"
+        }
+      },
+      "trigger": "brave:become_agent"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Become Omen",
+    "icon": {
+      "count": 1,
+      "id": "brave:icon_agent"
+    },
+    "title": "The shadow"
+  },
+  "requirements": [
+    [
+      "be_omen"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

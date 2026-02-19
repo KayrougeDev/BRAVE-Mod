@@ -1,8 +1,8 @@
 package fr.kayrouge.brave;
 
 import fr.kayrouge.brave.agents.Agents;
-import fr.kayrouge.brave.agents.spell.Spell;
 import fr.kayrouge.brave.agents.spell.Spells;
+import fr.kayrouge.brave.criterion.BCriteria;
 import fr.kayrouge.brave.items.BItems;
 import fr.kayrouge.brave.network.BNetworkConstants;
 import fr.kayrouge.brave.potions.BPotions;
@@ -10,13 +10,9 @@ import fr.kayrouge.brave.potions.BStatusEffect;
 import fr.kayrouge.brave.util.configs.BRAVEServerConfig;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigHolder;
-import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +34,7 @@ public class BRAVE implements ModInitializer {
 		BItems.init();
 		BStatusEffect.init();
 		BPotions.init();
+		BCriteria.init();
 
 		BNetworkConstants.registerC2S();
 		BNetworkConstants.registerS2C();

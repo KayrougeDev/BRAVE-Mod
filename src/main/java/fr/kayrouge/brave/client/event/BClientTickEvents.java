@@ -11,10 +11,11 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 public class BClientTickEvents {
@@ -30,6 +31,20 @@ public class BClientTickEvents {
                 Vec3d hitPos = hitResult.getPos();
                 Vec3d rotationVec = player.getRotationVec(0.0f);
                 Vec3d tpPos = hitPos.subtract(rotationVec);
+                BlockPos blockPos = BlockPos.ofFloored(tpPos.x, tpPos.y, tpPos.z);
+
+
+                int offset = 0;
+                while (player.getEntityWorld().isInBuildLimit(blockPos.add(0, -offset, 0))) {
+                    BlockPos down = blockPos.add(0, -offset, 0).down();
+                    if(player.getEntityWorld().getBlockState(down).isAir()) {
+                        offset++;
+                        continue;
+                    }
+
+                    tpPos = new Vec3d(tpPos.x, MathHelper.floor(tpPos.y)-offset, tpPos.z);
+                    break;
+                }
 
                 SpellDataManager.getInstance().setTpVec(tpPos);
 

@@ -1,12 +1,10 @@
 package fr.kayrouge.brave.client.event;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import fr.kayrouge.brave.agents.spell.SpellDataManager;
 import fr.kayrouge.brave.client.render.SpellRenderPipeline;
 import fr.kayrouge.brave.client.render.BRenderers;
 import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderEvents;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.VertexConsumer;
@@ -21,6 +19,11 @@ public class BWorldRenderEvents {
 
         WorldRenderEvents.END_MAIN.register(worldRenderContext -> {
 
+//            if(true) {
+//                SpellRenderPipeline.getInstance().renderTarget(worldRenderContext);
+//                SpellRenderPipeline.getInstance().finish(MinecraftClient.getInstance(), RenderPipelines.DEBUG_FILLED_BOX);
+//                return;
+//            }
             worldRenderContext.matrices().push();
 
             Camera camera = MinecraftClient.getInstance().gameRenderer.getCamera();
@@ -46,8 +49,7 @@ public class BWorldRenderEvents {
 
             worldRenderContext.matrices().pop();
 
-            //SpellRenderPipeline.getInstance().renderTarget(worldRenderContext);
-            //SpellRenderPipeline.getInstance().finish(MinecraftClient.getInstance(), RenderPipelines.DEBUG_FILLED_BOX);
+
 
 
         });

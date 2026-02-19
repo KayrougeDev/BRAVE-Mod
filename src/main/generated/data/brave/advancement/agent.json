@@ -1,0 +1,28 @@
+{
+  "parent": "brave:brave",
+  "criteria": {
+    "be_agent": {
+      "conditions": {
+        "agent": {
+          "agents": "brave:human"
+        },
+        "negated": true
+      },
+      "trigger": "brave:become_agent"
+    }
+  },
+  "display": {
+    "description": "Become an agent",
+    "icon": {
+      "count": 1,
+      "id": "brave:icon_agent"
+    },
+    "title": "Welcome to the protocol, agent"
+  },
+  "requirements": [
+    [
+      "be_agent"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

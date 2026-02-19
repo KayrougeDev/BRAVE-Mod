@@ -7,8 +7,9 @@ import net.minecraft.registry.Registry;
 
 public class Agents {
 
-    public static final Agent DEFAULT = register(new DefaultAgent("default"));
-    public static final Agent OMEN = register(new OmenAgent("omen"));
+    public static final Agent DEFAULT = register(new DefaultAgent("Human"));
+    public static final Agent TEST = register(new DefaultAgent("TEST"));
+    public static final Agent OMEN = register(new OmenAgent("Omen"));
 
 
     private static Agent register(String id, Agent agent) {
@@ -16,7 +17,7 @@ public class Agents {
     }
 
     private static Agent register(Agent agent) {
-        return register(agent.getName(), agent);
+        return register(agent.getUniversalName(), agent);
     }
 
 

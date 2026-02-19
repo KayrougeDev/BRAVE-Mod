@@ -8,7 +8,10 @@ import fr.kayrouge.brave.agents.spell.EquippableSpell;
 import fr.kayrouge.brave.agents.spell.Spell;
 import fr.kayrouge.brave.agents.spell.Spells;
 import fr.kayrouge.brave.client.render.BRenderers;
+import fr.kayrouge.brave.criterion.BCriteria;
 import fr.kayrouge.brave.network.BPacketCodecs;
+import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -19,8 +22,12 @@ import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 
 public class PlayerDataComponent implements AutoSyncedComponent {
 
+    @Getter
     private Agent agent = Agents.DEFAULT;
+    @Getter
+    @Setter
     private int exposedTime = 0;
+    @Getter
     private Spell equippedSpell = Spells.DEFAULT;
 
     private final PlayerEntity player;
@@ -66,34 +73,24 @@ public class PlayerDataComponent implements AutoSyncedComponent {
         writeView.putString("agentID", BRegistries.AGENTS.getId(this.agent).toString());
     }
 
-
-    @Override
-    public boolean shouldSyncWith(ServerPlayerEntity player) {
-        return true;
+    public void setAgent(Agent agent) {
+        setAgent(agent, false);
     }
 
-    public int getExposedTime() {
-        return exposedTime;
-    }
-
-    public void setExposedTime(int exposedTime) {
-        this.exposedTime = exposedTime;
+    public void setAgent(Agent agent, boolean sync) {
+        if (!(this.player instanceof ServerPlayerEntity)) {
+            BRAVE.LOGGER.error("Tried change agent on client side !");
+            return;
+        }
+        this.agent = agent;
+        BCriteria.BECOME_AGENT.trigger((ServerPlayerEntity) this.player, agent);
+        if (sync) {
+            BComponents.PLAYER_DATA.sync(this.player);
+        }
     }
 
     public void incrementExposedTime() {
         this.exposedTime++;
-    }
-
-    public void setAgent(Agent agent) {
-        this.agent = agent;
-    }
-
-    public Agent getAgent() {
-        return agent;
-    }
-
-    public Spell getEquippedSpell() {
-        return equippedSpell;
     }
 
     public void setEquippedSpell(EquippableSpell equippedSpell) {

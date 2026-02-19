@@ -1,0 +1,33 @@
+{
+  "parent": "brave:agent",
+  "criteria": {
+    "be_test": {
+      "conditions": {
+        "agent": {
+          "agents": "brave:test"
+        }
+      },
+      "trigger": "brave:become_agent"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Become a... test ?",
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "brave:icon_agent"
+    },
+    "title": "The useful useless"
+  },
+  "requirements": [
+    [
+      "be_test"
+    ]
+  ],
+  "rewards": {
+    "experience": 5
+  },
+  "sends_telemetry_event": true
+}

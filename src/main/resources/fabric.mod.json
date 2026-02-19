@@ -23,7 +23,9 @@
 			"fr.kayrouge.brave.client.BRAVEClient"
 		],
 		"modmenu": [ "fr.kayrouge.brave.util.impl.BRAVEMenuApiImpl" ],
-		"fabric-datagen": [ "fr.kayrouge.brave.BRAVEDataGenerator" ],
+		"fabric-datagen": [
+			"fr.kayrouge.brave.datagen.BRAVEDataGenerator"
+		],
 		"cardinal-components": [ "fr.kayrouge.brave.component.BComponents" ]
 	},
 	"mixins": [

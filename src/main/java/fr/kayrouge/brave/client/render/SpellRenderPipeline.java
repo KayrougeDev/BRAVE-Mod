@@ -6,19 +6,18 @@ import com.mojang.blaze3d.pipeline.RenderPipeline;
 import com.mojang.blaze3d.systems.CommandEncoder;
 import com.mojang.blaze3d.systems.RenderPass;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.textures.GpuTextureView;
+import com.mojang.blaze3d.textures.TextureFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import fr.kayrouge.brave.BRAVE;
 import lombok.Getter;
 import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderContext;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.MappableRingBuffer;
-import net.minecraft.client.gl.PostEffectProcessor;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.BuiltBuffer;
 import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.util.BufferAllocator;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.Vec3d;
@@ -154,9 +153,15 @@ public class SpellRenderPipeline {
         // Actually execute the draw
         GpuBufferSlice dynamicTransforms = RenderSystem.getDynamicUniforms()
                 .write(RenderSystem.getModelViewMatrix(), COLOR_MODULATOR, MODEL_OFFSET, TEXTURE_MATRIX);
+
+        GpuTextureView textureView = RenderSystem.getDevice().createTextureView(RenderSystem.getDevice().createTexture("filedcube", 0, TextureFormat.RGBA8, 1, 1, 1, 1));
+        GpuTextureView depthView = RenderSystem.getDevice().createTextureView(RenderSystem.getDevice().createTexture("filedcubedepth", 0, TextureFormat.DEPTH32, 1, 1, 1, 1));
+
+
+
         try (RenderPass renderPass = RenderSystem.getDevice()
                 .createCommandEncoder()
-                .createRenderPass(() -> BRAVE.MOD_ID + " example render pipeline rendering", RenderSystem.outputColorTextureOverride, OptionalInt.empty(), RenderSystem.outputDepthTextureOverride, OptionalDouble.empty())) {
+                .createRenderPass(() -> BRAVE.MOD_ID + " example render pipeline rendering", textureView, OptionalInt.empty(), depthView, OptionalDouble.empty())) {
             renderPass.setPipeline(pipeline);
 
             RenderSystem.bindDefaultUniforms(renderPass);

@@ -1,5 +1,6 @@
 package fr.kayrouge.brave.mixin;
 
+import fr.kayrouge.brave.agents.Agent;
 import fr.kayrouge.brave.agents.Agents;
 import fr.kayrouge.brave.component.BComponents;
 import fr.kayrouge.brave.items.BItems;
@@ -36,7 +37,8 @@ public abstract class ServerPlayerEntityMixin {
 
 		if(exposedTime >= minExpositionTick) {
 			// TODO transform into random agent or display a screen
-			BComponents.PLAYER_DATA.get(INSTANCE).setAgent(Agents.OMEN);
+			Agent agent = Agents.OMEN;
+			BComponents.PLAYER_DATA.get(INSTANCE).setAgent(agent);
 			BComponents.PLAYER_DATA.get(INSTANCE).setExposedTime(-1);
 			INSTANCE.removeStatusEffect(StatusEffects.NAUSEA);
 			INSTANCE.removeStatusEffect(StatusEffects.POISON);

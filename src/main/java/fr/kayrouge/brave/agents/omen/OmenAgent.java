@@ -20,17 +20,17 @@ public class OmenAgent extends Agent {
 
     @Override
     public Spell getSecondSpell() {
-        return null;
+        return Spells.DEFAULT;
     }
 
     @Override
     public Spell getThirdSpell() {
-        return null;
+        return Spells.DEFAULT;
     }
 
     @Override
     public Spell getUltimate() {
-        return null;
+        return Spells.DEFAULT;
     }
 
     @Environment(EnvType.CLIENT)

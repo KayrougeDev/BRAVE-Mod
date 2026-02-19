@@ -18,11 +18,11 @@ import java.util.function.Function;
 public class BItems {
 
     public static final Item ICON = register("icon", settings -> new Item(settings.maxCount(1).fireproof().rarity(Rarity.EPIC).jukeboxPlayable(JukeboxSongs.PIGSTEP)), BItemGroups.OTHER);
+    public static final Item ICON_AGENT = register("icon_agent", settings -> new Item(settings.maxCount(1).fireproof().rarity(Rarity.EPIC).jukeboxPlayable(JukeboxSongs.LAVA_CHICKEN)), BItemGroups.OTHER);
     public static final Item RADIANITE = register("radianite", settings -> new Item(settings.maxCount(24)), ItemGroups.INGREDIENTS);
-    public static final Item RESET = register("reset", settings -> new ResetItem(settings.maxCount(1)));
 
 
-    private static Item register(String name, Function<Item.Settings, Item> factory) {
+    public static Item register(String name, Function<Item.Settings, Item> factory) {
         RegistryKey<Item> key = RegistryKey.of(RegistryKeys.ITEM, Identifier.of(BRAVE.MOD_ID, name));
 
         Item item = factory.apply(new Item.Settings().registryKey(key));

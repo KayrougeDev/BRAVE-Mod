@@ -1,0 +1,14 @@
+{
+  "brave.itemGroup.other": "BRAVE: Other",
+  "item.brave.become_agent.agent": "Agent: ",
+  "item.brave.become_agent.show_spell": "Press Shift to see this agent's spells",
+  "item.brave.become_agent.spells": "Spells:",
+  "item.brave.become_human": "Become Human",
+  "item.brave.become_omen": "Become Omen",
+  "item.brave.become_test": "Become TEST",
+  "item.brave.icon": "Icon: BRAVE",
+  "item.brave.icon_agent": "Icon: Agent",
+  "item.brave.radianite": "Radianite",
+  "spell.brave.default": "N/A",
+  "spell.brave.omen_tp": "Shrouded Step"
+}

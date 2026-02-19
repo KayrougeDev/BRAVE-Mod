@@ -1,0 +1,23 @@
+{
+  "criteria": {
+    "livin": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "display": {
+    "background": "minecraft:gui/advancements/backgrounds/adventure",
+    "description": "Protect your world",
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "brave:icon"
+    },
+    "title": "BRAVE"
+  },
+  "requirements": [
+    [
+      "livin"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

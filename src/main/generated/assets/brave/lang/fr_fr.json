@@ -1,0 +1,14 @@
+{
+  "brave.itemGroup.other": "BRAVE: Autre",
+  "item.brave.become_agent.agent": "Agent: ",
+  "item.brave.become_agent.show_spell": "Appuyez sur Maj pour voir les compétences",
+  "item.brave.become_agent.spells": "Compétences:",
+  "item.brave.become_human": "Devenir Human",
+  "item.brave.become_omen": "Devenir Omen",
+  "item.brave.become_test": "Devenir TEST",
+  "item.brave.icon": "Icône",
+  "item.brave.icon_agent": "Icône: Agent",
+  "item.brave.radianite": "Radianite",
+  "spell.brave.default": "N/A",
+  "spell.brave.omen_tp": "Voie Des Ombres"
+}
