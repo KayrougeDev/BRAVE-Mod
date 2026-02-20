@@ -23,6 +23,10 @@ public class BRAVEEnglishLangProvider extends FabricLanguageProvider {
         translationBuilder.add(Spells.DEFAULT.getTranslationKey(), "N/A");
         translationBuilder.add(Spells.OMEN_TP.getTranslationKey(), "Shrouded Step");
 
+        // Spell description
+        translationBuilder.add(Spells.DEFAULT.getDescriptionTranslationKey(), "Nothing");
+        translationBuilder.add(Spells.OMEN_TP.getDescriptionTranslationKey(), "EQUIP a shadow walk ability and see its range indicator. FIRE to begin a brief channel, then teleport to the marked location.");
+
         // Item
         translationBuilder.add(BItems.RADIANITE, "Radianite");
         translationBuilder.add(BItems.ICON, "Icon: BRAVE");

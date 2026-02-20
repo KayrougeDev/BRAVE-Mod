@@ -23,6 +23,11 @@ public class BRAVEFrenchLangProvider extends FabricLanguageProvider {
         translationBuilder.add(Spells.DEFAULT.getTranslationKey(), "N/A");
         translationBuilder.add(Spells.OMEN_TP.getTranslationKey(), "Voie Des Ombres");
 
+        // Spell description
+        translationBuilder.add(Spells.DEFAULT.getDescriptionTranslationKey(), "Rien");
+        translationBuilder.add(Spells.OMEN_TP.getDescriptionTranslationKey(), "ÉQUIPEZ-vous d'une compétence de marche des ombres accompagnée d'un indicateur de portée. TIREZ pour commencer une courte canalisation avant de vous téléporter vers l'endroit marqué.");
+
+
         // Item
         translationBuilder.add(BItems.RADIANITE, "Radianite");
         translationBuilder.add(BItems.ICON, "Icône");

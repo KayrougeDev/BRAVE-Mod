@@ -16,6 +16,10 @@ public abstract class Spell {
         return Util.createTranslationKey("spell", BRegistries.SPELLS.getId(this));
     }
 
+    public String getDescriptionTranslationKey() {
+        return Util.createTranslationKey("spell", BRegistries.SPELLS.getId(this).withSuffixedPath(".description"));
+    }
+
     public abstract int getTickCooldown();
     public int getSecondCooldown() {
         return getTickCooldown()/20;

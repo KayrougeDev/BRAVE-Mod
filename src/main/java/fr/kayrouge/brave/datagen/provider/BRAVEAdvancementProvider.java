@@ -105,7 +105,7 @@ public class BRAVEAdvancementProvider extends FabricAdvancementProvider {
                 .display(
                         BItems.ICON_AGENT,
                         Text.literal("We only need you"),
-                        Text.literal("Become every agent"),
+                        Text.literal("Try out every agent"),
                         null,
                         AdvancementFrame.CHALLENGE,
                         true,

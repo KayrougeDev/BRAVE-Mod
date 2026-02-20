@@ -10,5 +10,7 @@
   "item.brave.icon_agent": "Icon: Agent",
   "item.brave.radianite": "Radianite",
   "spell.brave.default": "N/A",
-  "spell.brave.omen_tp": "Shrouded Step"
+  "spell.brave.default.description": "Nothing",
+  "spell.brave.omen_tp": "Shrouded Step",
+  "spell.brave.omen_tp.description": "EQUIP a shadow walk ability and see its range indicator. FIRE to begin a brief channel, then teleport to the marked location."
 }
