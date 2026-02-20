@@ -1,8 +1,6 @@
 package fr.kayrouge.brave.mixin.client;
 
-import fr.kayrouge.brave.BRAVE;
-import fr.kayrouge.brave.agents.Agents;
-import fr.kayrouge.brave.agents.spell.Spell;
+import fr.kayrouge.brave.agents.spell.EquippableSpell;
 import fr.kayrouge.brave.agents.spell.SpellDataManager;
 import fr.kayrouge.brave.agents.spell.Spells;
 import fr.kayrouge.brave.component.BComponents;
@@ -26,18 +24,25 @@ public class MinecraftClientMixin {
         boolean wasPressed =  keyBinding.wasPressed();
 
         if (keyBinding == client.options.attackKey && wasPressed) {
-            if (BComponents.PLAYER_DATA.get(client.player).getEquippedSpell() == Spells.OMEN_TP) {
+            EquippableSpell spell = BComponents.PLAYER_DATA.get(client.player).getEquippedSpell();
+            if(spell != Spells.DEFAULT) {
                 NbtCompound data = new NbtCompound();
-                Vec3d tpVec = SpellDataManager.getInstance().getTpVec();
-                data.putDouble("tpX", tpVec.x);
-                data.putDouble("tpY", tpVec.y);
-                data.putDouble("tpZ", tpVec.z);
 
-                ClientPlayNetworking.send(new EquippedSpellUseC2SPayload(Spells.OMEN_TP, data, false));
+                if (BComponents.PLAYER_DATA.get(client.player).getEquippedSpell() == Spells.OMEN_TP) {
+                    Vec3d tpVec = SpellDataManager.getInstance().getTpVec();
 
-                SpellDataManager.getInstance().setTpVec(Vec3d.ZERO);
+                    data.putDouble("tpX", tpVec.x);
+                    data.putDouble("tpY", tpVec.y);
+                    data.putDouble("tpZ", tpVec.z);
+
+                    SpellDataManager.getInstance().setTpVec(Vec3d.ZERO);
+                    return false;
+                }
+
+                ClientPlayNetworking.send(new EquippedSpellUseC2SPayload(spell, data, false));
                 return false;
             }
+
         }
 
         if (keyBinding == client.options.useKey && wasPressed) {

@@ -27,8 +27,10 @@ public class PlayerDataComponent implements AutoSyncedComponent {
     @Getter
     @Setter
     private int exposedTime = 0;
+
     @Getter
-    private Spell equippedSpell = Spells.DEFAULT;
+    @Setter
+    private EquippableSpell equippedSpell = Spells.DEFAULT;
 
     private final PlayerEntity player;
     public PlayerDataComponent(PlayerEntity player) {
@@ -38,7 +40,10 @@ public class PlayerDataComponent implements AutoSyncedComponent {
     @Override
     public void applySyncPacket(RegistryByteBuf buf) {
         this.agent = BPacketCodecs.AGENT.decode(buf);
-        this.equippedSpell = BPacketCodecs.SPELL.decode(buf);
+
+        if(BPacketCodecs.SPELL.decode(buf) instanceof EquippableSpell eSpell) {
+            this.equippedSpell = eSpell;
+        }
 
 
         // if should update agent
@@ -93,9 +98,6 @@ public class PlayerDataComponent implements AutoSyncedComponent {
         this.exposedTime++;
     }
 
-    public void setEquippedSpell(EquippableSpell equippedSpell) {
-        this.equippedSpell = equippedSpell;
-    }
 
     public void resetEquippedSpell() {
         this.equippedSpell = Spells.DEFAULT;

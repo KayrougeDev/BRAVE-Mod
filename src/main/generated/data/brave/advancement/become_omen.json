@@ -12,12 +12,16 @@
   },
   "display": {
     "announce_to_chat": false,
-    "description": "Become Omen",
+    "description": {
+      "translate": "advancement.brave.become_omen.desc"
+    },
     "icon": {
       "count": 1,
       "id": "brave:icon_agent"
     },
-    "title": "The shadow"
+    "title": {
+      "translate": "advancement.brave.become_omen.title"
+    }
   },
   "requirements": [
     [

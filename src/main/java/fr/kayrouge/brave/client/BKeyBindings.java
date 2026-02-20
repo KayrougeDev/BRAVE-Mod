@@ -15,12 +15,22 @@ import org.lwjgl.glfw.GLFW;
 public class BKeyBindings {
 
     public static final KeyBinding TEST_KEY = new KeyBinding("de", GLFW.GLFW_KEY_C, KeyBinding.Category.MOVEMENT);
-    public static final KeyBinding FIRST_SPELL_USE = new KeyBinding("first_spell", GLFW.GLFW_KEY_K, KeyBinding.Category.GAMEPLAY);
+
+    public static final KeyBinding FIRST_SPELL_USE = new KeyBinding(BRAVE.MOD_ID+":first_spell", GLFW.GLFW_KEY_U, KeyBinding.Category.GAMEPLAY);
+    public static final KeyBinding SECOND_SPELL_USE = new KeyBinding(BRAVE.MOD_ID+":second_spell", GLFW.GLFW_KEY_I, KeyBinding.Category.GAMEPLAY);
+    public static final KeyBinding THIRD_SPELL_USE = new KeyBinding(BRAVE.MOD_ID+":third_spell", GLFW.GLFW_KEY_O, KeyBinding.Category.GAMEPLAY);
+    public static final KeyBinding ULTIMATE_USE = new KeyBinding(BRAVE.MOD_ID+":ultimate", GLFW.GLFW_KEY_P, KeyBinding.Category.GAMEPLAY);
+
+
+
     public static final KeyBinding DISPLAY_AGENT_INFO = new KeyBinding("display_agent_info", GLFW.GLFW_KEY_F7, KeyBinding.Category.MISC);
 
     public static void register() {
         KeyBindingHelper.registerKeyBinding(TEST_KEY);
         KeyBindingHelper.registerKeyBinding(FIRST_SPELL_USE);
+        KeyBindingHelper.registerKeyBinding(SECOND_SPELL_USE);
+        KeyBindingHelper.registerKeyBinding(THIRD_SPELL_USE);
+        KeyBindingHelper.registerKeyBinding(ULTIMATE_USE);
         KeyBindingHelper.registerKeyBinding(DISPLAY_AGENT_INFO);
     }
 
@@ -37,6 +47,15 @@ public class BKeyBindings {
 
         while (FIRST_SPELL_USE.wasPressed()) {
             useSpell(BComponents.PLAYER_DATA.get(client.player).getAgent().getFirstSpell());
+        }
+        while (SECOND_SPELL_USE.wasPressed()) {
+            useSpell(BComponents.PLAYER_DATA.get(client.player).getAgent().getSecondSpell());
+        }
+        while (THIRD_SPELL_USE.wasPressed()) {
+            useSpell(BComponents.PLAYER_DATA.get(client.player).getAgent().getThirdSpell());
+        }
+        while (ULTIMATE_USE.wasPressed()) {
+            useSpell(BComponents.PLAYER_DATA.get(client.player).getAgent().getUltimate());
         }
     }
 

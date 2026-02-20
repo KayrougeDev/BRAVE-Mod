@@ -10,18 +10,13 @@ import net.minecraft.registry.Registry;
 public class Agents {
 
     public static final Agent DEFAULT = register(new DefaultAgent("Human"));
-    public static final Agent TEST = register(new DefaultAgent("", "T3ST"));
+    public static final Agent TEST = register(new DefaultAgent("test", "T3ST"));
     public static final Agent OMEN = register(new OmenAgent("Omen"));
     public static final Agent WAYLAY = register(new WaylayAgent("Waylay"));
     public static final Agent RAZE = register(new RazeAgent("Raze"));
 
-
-    private static Agent register(String id, Agent agent) {
-        return Registry.register(BRegistries.AGENTS, BRAVE.id(id), agent);
-    }
-
     private static Agent register(Agent agent) {
-        return register(agent.getUniversalName(), agent);
+        return Registry.register(BRegistries.AGENTS, BRAVE.id(agent.getUniversalName()), agent);
     }
 
 

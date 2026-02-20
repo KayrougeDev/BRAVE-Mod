@@ -8,20 +8,47 @@
         }
       },
       "trigger": "brave:become_agent"
+    },
+    "be_raze": {
+      "conditions": {
+        "agent": {
+          "agents": "brave:raze"
+        }
+      },
+      "trigger": "brave:become_agent"
+    },
+    "be_waylay": {
+      "conditions": {
+        "agent": {
+          "agents": "brave:waylay"
+        }
+      },
+      "trigger": "brave:become_agent"
     }
   },
   "display": {
-    "description": "Try out every agent",
-    "frame": "challenge",
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.brave.agent_of_the_month.desc"
+    },
+    "frame": "goal",
     "icon": {
       "count": 1,
       "id": "brave:icon_agent"
     },
-    "title": "We only need you"
+    "title": {
+      "translate": "advancement.brave.agent_of_the_month.title"
+    }
   },
   "requirements": [
     [
       "be_omen"
+    ],
+    [
+      "be_waylay"
+    ],
+    [
+      "be_raze"
     ]
   ],
   "sends_telemetry_event": true

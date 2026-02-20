@@ -6,7 +6,9 @@
   },
   "display": {
     "background": "minecraft:gui/advancements/backgrounds/adventure",
-    "description": "Protect your world",
+    "description": {
+      "translate": "advancement.brave.brave.desc"
+    },
     "frame": "challenge",
     "icon": {
       "count": 1,

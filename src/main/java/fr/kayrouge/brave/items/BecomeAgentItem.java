@@ -27,6 +27,7 @@ public class BecomeAgentItem extends Item {
     public static final String TOOLTIP_SHOW_SPELL_TRANSLATION_KEY = Util.createTranslationKey("item", BRAVE.id("become_agent.show_spell"));
     public static final String TOOLTIP_SPELLS_TRANSLATION_KEY = Util.createTranslationKey("item", BRAVE.id("become_agent.spells"));
     public static final String TOOLTIP_AGENT_TRANSLATION_KEY = Util.createTranslationKey("item", BRAVE.id("become_agent.agent"));
+    public static final String TOOLTIP_SHOW_DESCRIPTION_TRANSLATION_KEY = Util.createTranslationKey("item", BRAVE.id("become_agent.show_desc"));
 
     public BecomeAgentItem(Agent agent, Settings settings) {
         super(settings);
@@ -67,5 +68,6 @@ public class BecomeAgentItem extends Item {
         else {
             textConsumer.accept(Text.translatable(TOOLTIP_SHOW_SPELL_TRANSLATION_KEY).formatted(Formatting.GRAY, Formatting.ITALIC));
         }
+
     }
 }

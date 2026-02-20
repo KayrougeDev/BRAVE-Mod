@@ -1,5 +1,6 @@
 package fr.kayrouge.brave.agents;
 
+import fr.kayrouge.brave.BRegistries;
 import fr.kayrouge.brave.agents.spell.Spell;
 import fr.kayrouge.brave.client.render.BRenderers;
 import fr.kayrouge.brave.items.BItemGroups;
@@ -10,10 +11,9 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.Item;
+import net.minecraft.util.Util;
 
 public abstract class Agent {
-
-    // TODO agent description
 
     @Getter
     private final String displayName;
@@ -49,6 +49,10 @@ public abstract class Agent {
 
     public boolean isRadiant() {
         return true;
+    }
+
+    public String getDescriptionTranslationKey() {
+        return Util.createTranslationKey("agent", BRegistries.AGENTS.getId(this).withSuffixedPath(".description"));
     }
 
     @Environment(EnvType.CLIENT)

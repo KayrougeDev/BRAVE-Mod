@@ -1,6 +1,7 @@
 package fr.kayrouge.brave.datagen;
 
 import fr.kayrouge.brave.datagen.provider.BRAVEAdvancementProvider;
+import fr.kayrouge.brave.datagen.provider.BRAVEModelProvider;
 import fr.kayrouge.brave.datagen.provider.lang.BRAVEEnglishLangProvider;
 import fr.kayrouge.brave.datagen.provider.lang.BRAVEFrenchLangProvider;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
@@ -13,6 +14,8 @@ public class BRAVEDataGenerator implements DataGeneratorEntrypoint {
 		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 
 		pack.addProvider(BRAVEAdvancementProvider::new);
+
+		pack.addProvider(BRAVEModelProvider::new);
 
 		// Translation
 		pack.addProvider(BRAVEEnglishLangProvider::new);

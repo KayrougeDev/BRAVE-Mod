@@ -14,12 +14,14 @@ import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 public class BRAVEAdvancementProvider extends FabricAdvancementProvider {
 
@@ -29,14 +31,11 @@ public class BRAVEAdvancementProvider extends FabricAdvancementProvider {
 
     @Override
     public void generateAdvancement(RegistryWrapper.WrapperLookup registryLookup, Consumer<AdvancementEntry> consumer) {
-
-        // TODO advancements translation
-
         AdvancementEntry brave = Advancement.Builder.create()
                 .display(
                         BItems.ICON,
                         Text.literal("BRAVE"),
-                        Text.literal("Protect your world"),
+                        Text.translatable(getTranslation("brave/desc")),
                         Identifier.of("gui/advancements/backgrounds/adventure"),
                         AdvancementFrame.CHALLENGE,
                         true,
@@ -52,8 +51,8 @@ public class BRAVEAdvancementProvider extends FabricAdvancementProvider {
                 .parent(brave)
                 .display(
                         BItems.ICON_AGENT,
-                        Text.literal("Welcome to the protocol, agent"),
-                        Text.literal("Become an agent"),
+                        Text.translatable(getTranslation("agent/title")),
+                        Text.translatable(getTranslation("agent/desc")),
                         null,
                         AdvancementFrame.TASK,
                         true,
@@ -67,8 +66,8 @@ public class BRAVEAdvancementProvider extends FabricAdvancementProvider {
                 .parent(agent)
                 .display(
                         BItems.ICON_AGENT,
-                        Text.literal("The shadow"),
-                        Text.literal("Become Omen"),
+                        Text.translatable(getTranslation("become_omen/title")),
+                        Text.translatable(getTranslation("become_omen/desc")),
                         null,
                         AdvancementFrame.TASK,
                         true,
@@ -101,7 +100,7 @@ public class BRAVEAdvancementProvider extends FabricAdvancementProvider {
                 .display(
                         BItems.ICON_AGENT,
                         Text.literal("BOOOM!"),
-                        Text.literal("Become Raze"),
+                        Text.translatable(getTranslation("become_raze/desc")),
                         null,
                         AdvancementFrame.TASK,
                         true,
@@ -116,8 +115,8 @@ public class BRAVEAdvancementProvider extends FabricAdvancementProvider {
                 .parent(agent)
                 .display(
                         BItems.ICON_AGENT,
-                        Text.literal("Lightspeed"),
-                        Text.literal("Become Waylay"),
+                        Text.translatable(getTranslation("become_waylay/title")),
+                        Text.translatable(getTranslation("become_waylay/desc")),
                         null,
                         AdvancementFrame.TASK,
                         true,
@@ -129,57 +128,37 @@ public class BRAVEAdvancementProvider extends FabricAdvancementProvider {
                 .build(consumer, BRAVE.MOD_ID+":become_waylay");
 
 
-        AdvancementEntry superpowersAreUseless = createSuperpowerAreUseless(agent, consumer, registryLookup.getOrThrow(BRegistries.AGENTS.getKey()));
-
-        AdvancementEntry agentofthemonth = createAgentOfTheMonth(agent, consumer, registryLookup.getOrThrow(BRegistries.AGENTS.getKey()));
-
-    }
-
-    private AdvancementEntry createSuperpowerAreUseless(AdvancementEntry parent, Consumer<AdvancementEntry> consumer, RegistryWrapper.Impl<Agent> wrapper) {
-        Advancement.Builder superpowerAreUseless = Advancement.Builder.create()
-                .parent(parent)
-                .display(
+        AdvancementEntry superpowersAreUseless = createConditionedAllAgentsAdvancement(
+                Advancement.Builder.create().parent(agent).display(
                         BItems.ICON_AGENT,
-                        Text.literal("Superpowers are useless"),
-                        Text.literal("Try every non radiant agent"),
-                        null,
-                        AdvancementFrame.GOAL,
-                        true,
-                        false,
-                        false
-                );
-
-        List<String> criteriaNames = new ArrayList<>();
-
-        wrapper.streamEntries().forEach(agentReference -> {
-
-            Agent agent = agentReference.value();
-            if(agent == Agents.TEST || agent == Agents.DEFAULT || agent.isRadiant()) return;
-            String criterionName = "be_"+agent.getUniversalName();
-            criteriaNames.add(criterionName);
-
-            superpowerAreUseless.criterion(criterionName, BecomeAgentCriterion.Conditions.agent(wrapper, agent));
-
-        });
-        superpowerAreUseless.requirements(AdvancementRequirements.allOf(criteriaNames));
-
-        return superpowerAreUseless.build(consumer, BRAVE.MOD_ID+":superpower_are_useless");
-    }
-
-
-        private AdvancementEntry createAgentOfTheMonth(AdvancementEntry parent, Consumer<AdvancementEntry> consumer, RegistryWrapper.Impl<Agent> wrapper) {
-        Advancement.Builder agentofthemonth = Advancement.Builder.create()
-                .parent(parent)
-                .display(
-                        BItems.ICON_AGENT,
-                        Text.literal("We only need you"),
-                        Text.literal("Try out every agent"),
+                        Text.translatable(getTranslation("superpowers_are_useless/title")),
+                        Text.translatable(getTranslation("superpowers_are_useless/desc")),
                         null,
                         AdvancementFrame.CHALLENGE,
                         true,
                         true,
                         false
-                );
+                ), consumer, registryLookup.getOrThrow(BRegistries.AGENTS.getKey()), BRAVE.MOD_ID+":superpowers_are_useless", agent1 -> !agent1.isRadiant());
+
+
+        AdvancementEntry agentofthemonth = createConditionedAllAgentsAdvancement(
+                Advancement.Builder.create().parent(agent).display(
+                        BItems.ICON_AGENT,
+                        Text.translatable(BRAVEAdvancementProvider.getTranslation("agent_of_the_month/title")),
+                        Text.translatable(BRAVEAdvancementProvider.getTranslation("agent_of_the_month/desc")),
+                        null,
+                        AdvancementFrame.GOAL,
+                        true,
+                        false,
+                        false
+                ), consumer, registryLookup.getOrThrow(BRegistries.AGENTS.getKey()), BRAVE.MOD_ID+":agent_of_the_month", agent1 -> true);
+
+    }
+
+    private AdvancementEntry createConditionedAllAgentsAdvancement(Advancement.Builder builder,
+                                                                   Consumer<AdvancementEntry> consumer,
+                                                                   RegistryWrapper.Impl<Agent> wrapper,
+                                                                   String id, Predicate<Agent> agentPredicate) {
 
         List<String> criteriaNames = new ArrayList<>();
 
@@ -187,14 +166,19 @@ public class BRAVEAdvancementProvider extends FabricAdvancementProvider {
 
             Agent agent = agentReference.value();
             if(agent == Agents.TEST || agent == Agents.DEFAULT) return;
+            if(!agentPredicate.test(agent)) return;
             String criterionName = "be_"+agent.getUniversalName();
             criteriaNames.add(criterionName);
 
-            agentofthemonth.criterion(criterionName, BecomeAgentCriterion.Conditions.agent(wrapper, agent));
+            builder.criterion(criterionName, BecomeAgentCriterion.Conditions.agent(wrapper, agent));
 
         });
-        agentofthemonth.requirements(AdvancementRequirements.allOf(criteriaNames));
+        builder.requirements(AdvancementRequirements.allOf(criteriaNames));
 
-        return agentofthemonth.build(consumer, BRAVE.MOD_ID+":agent_of_the_month");
+        return builder.build(consumer, id);
+    }
+
+    public static String getTranslation(String name) {
+        return Util.createTranslationKey("advancement", BRAVE.id(name));
     }
 }

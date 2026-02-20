@@ -12,12 +12,16 @@
     }
   },
   "display": {
-    "description": "Become an agent",
+    "description": {
+      "translate": "advancement.brave.agent.desc"
+    },
     "icon": {
       "count": 1,
       "id": "brave:icon_agent"
     },
-    "title": "Welcome to the protocol, agent"
+    "title": {
+      "translate": "advancement.brave.agent.title"
+    }
   },
   "requirements": [
     [
