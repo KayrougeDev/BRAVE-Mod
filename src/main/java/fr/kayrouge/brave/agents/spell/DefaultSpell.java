@@ -15,10 +15,11 @@ public class DefaultSpell extends EquippableSpell {
     }
 
     @Override
-    public void equip() {
+    public void equip(ServerPlayerEntity player) {
+
     }
 
     @Override
-    public void cancel() {
+    public void cancel(ServerPlayerEntity player) {
     }
 }

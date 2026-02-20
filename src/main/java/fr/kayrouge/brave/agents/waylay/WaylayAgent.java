@@ -1,16 +1,13 @@
-package fr.kayrouge.brave.agents;
+package fr.kayrouge.brave.agents.waylay;
 
+import fr.kayrouge.brave.agents.Agent;
 import fr.kayrouge.brave.agents.spell.Spell;
 import fr.kayrouge.brave.agents.spell.Spells;
 
-public class DefaultAgent extends Agent {
+public class WaylayAgent extends Agent {
 
-    public DefaultAgent(String name) {
+    public WaylayAgent(String name) {
         super(name);
-    }
-
-    public DefaultAgent(String universalName, String displayName) {
-        super(universalName, displayName);
     }
 
     @Override
@@ -25,7 +22,7 @@ public class DefaultAgent extends Agent {
 
     @Override
     public Spell getThirdSpell() {
-        return Spells.DEFAULT;
+        return Spells.WAYLAY_TP;
     }
 
     @Override

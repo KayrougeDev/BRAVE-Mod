@@ -13,6 +13,8 @@ import net.minecraft.item.Item;
 
 public abstract class Agent {
 
+    // TODO agent description
+
     @Getter
     private final String displayName;
     @Getter
@@ -36,6 +38,18 @@ public abstract class Agent {
     public abstract Spell getSecondSpell();
     public abstract Spell getThirdSpell();
     public abstract Spell getUltimate();
+
+    public boolean isReallyAnUltimate() {
+        return getUltimate() instanceof Spell.IUltimate;
+    }
+
+    public int getUltimateCost() {
+        return isReallyAnUltimate() ? ((Spell.IUltimate)getUltimate()).getCost() : 0;
+    }
+
+    public boolean isRadiant() {
+        return true;
+    }
 
     @Environment(EnvType.CLIENT)
     public Runnable transformAnimation(BRenderers.RenderContext renderContext, long l) {

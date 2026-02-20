@@ -30,6 +30,8 @@ public class BRAVEAdvancementProvider extends FabricAdvancementProvider {
     @Override
     public void generateAdvancement(RegistryWrapper.WrapperLookup registryLookup, Consumer<AdvancementEntry> consumer) {
 
+        // TODO advancements translation
+
         AdvancementEntry brave = Advancement.Builder.create()
                 .display(
                         BItems.ICON,
@@ -94,12 +96,78 @@ public class BRAVEAdvancementProvider extends FabricAdvancementProvider {
                         Agents.TEST))
                 .build(consumer, BRAVE.MOD_ID+":become_test");
 
+        AdvancementEntry razeAgent = Advancement.Builder.create()
+                .parent(agent)
+                .display(
+                        BItems.ICON_AGENT,
+                        Text.literal("BOOOM!"),
+                        Text.literal("Become Raze"),
+                        null,
+                        AdvancementFrame.TASK,
+                        true,
+                        false,
+                        false
+                )
+                .criterion("be_raze", BecomeAgentCriterion.Conditions.agent(agentRegistry,
+                        Agents.RAZE))
+                .build(consumer, BRAVE.MOD_ID+":become_raze");
+
+        AdvancementEntry waylayAgent = Advancement.Builder.create()
+                .parent(agent)
+                .display(
+                        BItems.ICON_AGENT,
+                        Text.literal("Lightspeed"),
+                        Text.literal("Become Waylay"),
+                        null,
+                        AdvancementFrame.TASK,
+                        true,
+                        false,
+                        false
+                )
+                .criterion("be_waylay", BecomeAgentCriterion.Conditions.agent(agentRegistry,
+                        Agents.WAYLAY))
+                .build(consumer, BRAVE.MOD_ID+":become_waylay");
+
+
+        AdvancementEntry superpowersAreUseless = createSuperpowerAreUseless(agent, consumer, registryLookup.getOrThrow(BRegistries.AGENTS.getKey()));
 
         AdvancementEntry agentofthemonth = createAgentOfTheMonth(agent, consumer, registryLookup.getOrThrow(BRegistries.AGENTS.getKey()));
 
     }
 
-    private AdvancementEntry createAgentOfTheMonth(AdvancementEntry parent, Consumer<AdvancementEntry> consumer, RegistryWrapper.Impl<Agent> wrapper) {
+    private AdvancementEntry createSuperpowerAreUseless(AdvancementEntry parent, Consumer<AdvancementEntry> consumer, RegistryWrapper.Impl<Agent> wrapper) {
+        Advancement.Builder superpowerAreUseless = Advancement.Builder.create()
+                .parent(parent)
+                .display(
+                        BItems.ICON_AGENT,
+                        Text.literal("Superpowers are useless"),
+                        Text.literal("Try every non radiant agent"),
+                        null,
+                        AdvancementFrame.GOAL,
+                        true,
+                        false,
+                        false
+                );
+
+        List<String> criteriaNames = new ArrayList<>();
+
+        wrapper.streamEntries().forEach(agentReference -> {
+
+            Agent agent = agentReference.value();
+            if(agent == Agents.TEST || agent == Agents.DEFAULT || agent.isRadiant()) return;
+            String criterionName = "be_"+agent.getUniversalName();
+            criteriaNames.add(criterionName);
+
+            superpowerAreUseless.criterion(criterionName, BecomeAgentCriterion.Conditions.agent(wrapper, agent));
+
+        });
+        superpowerAreUseless.requirements(AdvancementRequirements.allOf(criteriaNames));
+
+        return superpowerAreUseless.build(consumer, BRAVE.MOD_ID+":superpower_are_useless");
+    }
+
+
+        private AdvancementEntry createAgentOfTheMonth(AdvancementEntry parent, Consumer<AdvancementEntry> consumer, RegistryWrapper.Impl<Agent> wrapper) {
         Advancement.Builder agentofthemonth = Advancement.Builder.create()
                 .parent(parent)
                 .display(

@@ -23,12 +23,12 @@ public class OmenTPSpell extends EquippableSpell {
     }
 
     @Override
-    public void equip() {
+    public void equip(ServerPlayerEntity player) {
         BRAVE.LOGGER.info("Equip omen tp");
     }
 
     @Override
-    public void cancel() {
+    public void cancel(ServerPlayerEntity player) {
         BRAVE.LOGGER.info("Cancel omen tp");
     }
 

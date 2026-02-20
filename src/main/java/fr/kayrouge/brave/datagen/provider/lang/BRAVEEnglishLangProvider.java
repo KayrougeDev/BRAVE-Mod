@@ -23,9 +23,24 @@ public class BRAVEEnglishLangProvider extends FabricLanguageProvider {
         translationBuilder.add(Spells.DEFAULT.getTranslationKey(), "N/A");
         translationBuilder.add(Spells.OMEN_TP.getTranslationKey(), "Shrouded Step");
 
+        translationBuilder.add(Spells.RAZE_BOOMBOT.getTranslationKey(), "Boom Bot");
+        translationBuilder.add(Spells.RAZE_SATCHEL.getTranslationKey(), "Blast Pack");
+        translationBuilder.add(Spells.RAZE_GRENADE.getTranslationKey(), "Paint Shells");
+        translationBuilder.add(Spells.RAZE_ULTIMATE.getTranslationKey(), "Showstopper");
+
+        translationBuilder.add(Spells.WAYLAY_TP.getTranslationKey(), "Refract");
+
         // Spell description
         translationBuilder.add(Spells.DEFAULT.getDescriptionTranslationKey(), "Nothing");
         translationBuilder.add(Spells.OMEN_TP.getDescriptionTranslationKey(), "EQUIP a shadow walk ability and see its range indicator. FIRE to begin a brief channel, then teleport to the marked location.");
+
+        translationBuilder.add(Spells.RAZE_BOOMBOT.getDescriptionTranslationKey(), "EQUIP a Boom Bot. FIRE will deploy the bot, causing it to travel in a straight line on the ground, bouncing off walls. The Boom Bot will lock on to any enemies in its frontal cone and chase them, exploding for heavy damage if it reaches them.");
+        translationBuilder.add(Spells.RAZE_SATCHEL.getDescriptionTranslationKey(), "INSTANTLY throw a Blast Pack that will stick to surfaces. RE-USE the ability after deployment to detonate, damaging and moving anything hit. Raze isn't damaged by this ability, but will still take fall damage if launched up far enough.");
+        translationBuilder.add(Spells.RAZE_GRENADE.getDescriptionTranslationKey(), "EQUIP a cluster grenade. FIRE to throw the grenade, which does damage and creates sub-munitions, each doing damage to anyone in their range. ALT FIRE to lob. Paint Shells charge resets every two kills.");
+        translationBuilder.add(Spells.RAZE_ULTIMATE.getDescriptionTranslationKey(), "EQUIP a rocket launcher. FIRE to shoot a rocket that does massive area damage on contact with anything.");
+
+        translationBuilder.add(Spells.WAYLAY_TP.getDescriptionTranslationKey(), "INSTANTLY create a beacon of light on the floor. REACTIVATE to speed back to your beacon as a mote of pure light. You are invulnerable as you travel.");
+
 
         // Item
         translationBuilder.add(BItems.RADIANITE, "Radianite");

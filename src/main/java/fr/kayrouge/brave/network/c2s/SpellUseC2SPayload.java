@@ -43,7 +43,7 @@ public record SpellUseC2SPayload(Spell spell) implements CustomPayload {
             if(spell instanceof EquippableSpell eSpell) {
 
                 if(eSpell != data.getEquippedSpell()) {
-                    eSpell.equip();
+                    eSpell.equip(context.player());
                     data.setEquippedSpell(eSpell);
                     BComponents.PLAYER_DATA.sync(context.player());
                 }
