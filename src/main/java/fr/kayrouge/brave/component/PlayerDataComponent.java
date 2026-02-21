@@ -48,7 +48,6 @@ public class PlayerDataComponent implements AutoSyncedComponent {
 
         // if should update agent
         if(buf.readBoolean()) {
-            BRAVE.LOGGER.info("SYNCED");
             BRenderers.INSTANCE.addRenderTask(this.agent::transformAnimation,1000*5);
         }
     }

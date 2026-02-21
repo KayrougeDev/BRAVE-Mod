@@ -11,8 +11,6 @@ public class OmenTPSpell extends EquippableSpell {
 
     @Override
     public boolean use(ServerPlayerEntity player, NbtCompound nbt) {
-        BRAVE.LOGGER.info("Use omen tp");
-
         double x = nbt.getDouble("tpX", 0);
         double y = nbt.getDouble("tpY", 0);
         double z = nbt.getDouble("tpZ", 0);
@@ -23,13 +21,11 @@ public class OmenTPSpell extends EquippableSpell {
     }
 
     @Override
-    public void equip(ServerPlayerEntity player) {
-        BRAVE.LOGGER.info("Equip omen tp");
-    }
+    public void equip(ServerPlayerEntity player) {}
 
     @Override
     public void cancel(ServerPlayerEntity player) {
-        BRAVE.LOGGER.info("Cancel omen tp");
+
     }
 
     @Override

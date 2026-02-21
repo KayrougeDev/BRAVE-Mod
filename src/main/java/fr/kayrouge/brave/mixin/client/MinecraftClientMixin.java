@@ -30,13 +30,10 @@ public class MinecraftClientMixin {
 
                 if (BComponents.PLAYER_DATA.get(client.player).getEquippedSpell() == Spells.OMEN_TP) {
                     Vec3d tpVec = SpellDataManager.getInstance().getTpVec();
-
                     data.putDouble("tpX", tpVec.x);
                     data.putDouble("tpY", tpVec.y);
                     data.putDouble("tpZ", tpVec.z);
-
                     SpellDataManager.getInstance().setTpVec(Vec3d.ZERO);
-                    return false;
                 }
 
                 ClientPlayNetworking.send(new EquippedSpellUseC2SPayload(spell, data, false));
@@ -46,8 +43,9 @@ public class MinecraftClientMixin {
         }
 
         if (keyBinding == client.options.useKey && wasPressed) {
-            if (BComponents.PLAYER_DATA.get(client.player).getEquippedSpell() == Spells.OMEN_TP) {
-                ClientPlayNetworking.send(new EquippedSpellUseC2SPayload(Spells.OMEN_TP, new NbtCompound(), true));
+            EquippableSpell spell = BComponents.PLAYER_DATA.get(client.player).getEquippedSpell();
+            if (spell != Spells.DEFAULT) {
+                ClientPlayNetworking.send(new EquippedSpellUseC2SPayload(spell, new NbtCompound(), true));
                 return false;
             }
         }

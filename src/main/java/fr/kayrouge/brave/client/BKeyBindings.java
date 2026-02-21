@@ -36,10 +36,6 @@ public class BKeyBindings {
 
     public static void handleInputs(MinecraftClient client) {
         while(TEST_KEY.wasPressed()) {
-            if(client.player == null) {
-                BRAVE.LOGGER.info("PLAYER NULL");
-                break;
-            }
             client.player.sendMessage(Text.literal(BComponents.PLAYER_DATA.get(client.player).getAgent().toString()), false);
             client.player.sendMessage(Text.literal(String.valueOf(BComponents.PLAYER_DATA.get(client.player).getExposedTime()/20)), false);
             client.player.sendMessage(Text.literal(String.valueOf(BComponents.PLAYER_DATA.get(client.player).getEquippedSpell().toString())), false);

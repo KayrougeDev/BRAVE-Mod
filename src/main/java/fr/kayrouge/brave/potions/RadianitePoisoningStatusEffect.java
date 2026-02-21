@@ -23,6 +23,5 @@ public class RadianitePoisoningStatusEffect extends StatusEffect {
     @Override
     public void onRemoved(AttributeContainer attributeContainer) {
         super.onRemoved(attributeContainer);
-        BRAVE.LOGGER.info("onRemoved");
     }
 }

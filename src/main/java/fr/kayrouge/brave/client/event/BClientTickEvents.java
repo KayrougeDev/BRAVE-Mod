@@ -42,8 +42,6 @@ public class BClientTickEvents {
                 }
 
                 SpellDataManager.getInstance().setTpVec(tpPos);
-
-                BRAVE.LOGGER.info(SpellDataManager.getInstance().getTpVec().toString());
             }
         });
 
