@@ -4,19 +4,13 @@ import fr.kayrouge.brave.BRAVE;
 import fr.kayrouge.brave.agents.Agent;
 import fr.kayrouge.brave.agents.Agents;
 import fr.kayrouge.brave.component.BComponents;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import java.util.function.Consumer;
 
@@ -24,12 +18,12 @@ public class BecomeAgentItem extends Item {
 
     private final Agent agent;
 
-    public static final String TOOLTIP_SHOW_SPELL_TRANSLATION_KEY = Util.createTranslationKey("item", BRAVE.id("become_agent.show_spell"));
-    public static final String TOOLTIP_SPELLS_TRANSLATION_KEY = Util.createTranslationKey("item", BRAVE.id("become_agent.spells"));
-    public static final String TOOLTIP_AGENT_TRANSLATION_KEY = Util.createTranslationKey("item", BRAVE.id("become_agent.agent"));
-    public static final String TOOLTIP_SHOW_DESCRIPTION_TRANSLATION_KEY = Util.createTranslationKey("item", BRAVE.id("become_agent.show_desc"));
+    public static final String TOOLTIP_SHOW_SPELL_TRANSLATION_KEY = Util.makeDescriptionId("item", BRAVE.id("become_agent.show_spell"));
+    public static final String TOOLTIP_SPELLS_TRANSLATION_KEY = Util.makeDescriptionId("item", BRAVE.id("become_agent.spells"));
+    public static final String TOOLTIP_AGENT_TRANSLATION_KEY = Util.makeDescriptionId("item", BRAVE.id("become_agent.agent"));
+    public static final String TOOLTIP_SHOW_DESCRIPTION_TRANSLATION_KEY = Util.makeDescriptionId("item", BRAVE.id("become_agent.show_desc"));
 
-    public BecomeAgentItem(Agent agent, Settings settings) {
+    public BecomeAgentItem(Agent agent, Properties settings) {
         super(settings);
         this.agent = agent;
     }
@@ -39,11 +33,11 @@ public class BecomeAgentItem extends Item {
     }
 
     @Override
-    public ActionResult use(World world, PlayerEntity user, Hand hand) {
-        if(!world.isClient()) {
-            BComponents.PLAYER_DATA.get(user).setAgent(this.agent, true);
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+        if(!level.isClientSide()) {
+            BComponents.PLAYER_DATA.get(player).setAgent(this.agent, true);
         }
-        return ActionResult.CONSUME;
+        return InteractionResult.SUCCESS;
     }
 
     @Override

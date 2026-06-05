@@ -9,9 +9,11 @@ import fr.kayrouge.brave.items.BecomeAgentItem;
 import lombok.Getter;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.item.Item;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.Util;
+import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.Item;
 
 public abstract class Agent {
 
@@ -25,9 +27,9 @@ public abstract class Agent {
     public Agent(String universalName, String displayName) {
         this.displayName = displayName;
         this.universalName = universalName;
-        this.item = BItems.register("become_"+universalName, settings -> new BecomeAgentItem(this, settings.maxCount(1)));
+        this.item = BItems.register("become_"+universalName, new BecomeAgentItem(this, new Item.Properties().stacksTo(1)));
 
-        ItemGroupEvents.modifyEntriesEvent(BItemGroups.OTHER).register(entries -> entries.add(this.item));
+        CreativeModeTabEvents.modifyOutputEvent(BItemGroups.OTHER).register(output -> output.accept(this::getItem));
     }
 
     public Agent(String name) {

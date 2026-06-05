@@ -13,7 +13,7 @@ import me.shedaniel.autoconfig.ConfigHolder;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,6 +43,6 @@ public class BRAVE implements ModInitializer {
 
 
 	public static Identifier id(String id) {
-		return Identifier.of(MOD_ID, id);
+		return Identifier.fromNamespaceAndPath(MOD_ID, id);
 	}
 }
